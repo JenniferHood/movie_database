@@ -34,7 +34,22 @@ end
       movie.update({:name => "6th Element"})
       expect(movie.name()).to(eq("6th Element"))
     end
+
+    it("lets you add an actor to a movie") do
+      movie = Movie.new({:name => "5th Element", :id => nil})
+      movie.save()
+      bruce = Actor.new({:name => "Bruce Willis", :id => nil})
+      bruce.save()
+      milla = Actor.new({:name => "Milla Jovovich", :id => nil})
+      milla.save()
+      movie.update({:actor_ids => [bruce.id(), milla.id()]})
+      expect(movie.actors()).to(eq([bruce, milla]))
+    end
   end
+
+  describe("#actors") do
+    it("returns all of the actors in a particular movie") do
+      movie = Movie.new({:name => "5th Element", :id => nil})
 
   describe("#delete") do
     it("lets you delete a movie from the database") do
